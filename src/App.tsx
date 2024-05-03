@@ -1,28 +1,28 @@
-import { ReactElement, useEffect, useState, FC } from 'react'
+import { useEffect, useState, FC } from 'react'
 import './App.css'
 
 type Recipe = {
-  id: Number,
+  id: number,
   name: String,
-  ingredients: Array<string>,
-  instructions: Array<string>,
-  prepTimeMinutes: Number,
-  cookTimeMinutes: Number,
-  servings: Number,
-  difficulty: String,
-  cuisine: String,
-  caloriesPerServing: Number,
-  tags: Array<string>,
+  ingredients: string[],
+  instructions: string[],
+  prepTimeMinutes: number,
+  cookTimeMinutes: number,
+  servings: number,
+  difficulty: string,
+  cuisine: string,
+  caloriesPerServing: number,
+  tags: string[],
   userId: number,
   image: string,
   rating: number,
   reviewCount: number,
-  mealType: Array<string>
+  mealType: string[]
 }
 
 type Recipes = {
   limit: number,
-  recipes: Array<Recipe>,
+  recipes: Recipe[],
   skip: number,
   total: number
 }
