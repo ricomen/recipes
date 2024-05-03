@@ -38,7 +38,7 @@ type IRecipesItemProps = {
   recipe: Recipe
 };
 
-const RecipesItem: FC<IRecipesItemProps> = ({recipe: recipe}) => {
+const RecipesItem: FC<IRecipesItemProps> = ({recipe}) => {
   const { 
     name,
     caloriesPerServing,
