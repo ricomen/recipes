@@ -27,7 +27,7 @@ type Recipes = {
   total: number
 }
 
-const INIT_STATE = {
+const INIT_STATE: Recipes = {
   limit: 0,
   recipes: [],
   skip: 0,
@@ -56,20 +56,62 @@ const RecipesItem: FC<IRecipesItemProps> = ({recipe}) => {
 }
 
 function App() {
-  const [recipes, setRecipes] = useState<Recipes>(INIT_STATE);
+  const [recipes, setRecipes] = useState(INIT_STATE);
+  const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false)
 
   const getRecipes = async () => {
-    const response = await fetch('https://dummyjson.com/recipes').then((res) => {
-      return res.json();
-    })
-    setRecipes(response);
+    setIsLoading(true)
+    setIsError(false)
+    try {
+      const response = await fetch('https://dummyjson.com/recipes').then(async res => {
+        await new Promise(resolve => setTimeout(resolve, 5000))
+        return res
+      })
+      const result = await response.json();
+      setRecipes(result);
+      setIsLoading(false)
+      
+    } catch (error) {
+      setIsLoading(false)
+      setIsError(true)
+    }
   }
+
+  const searchRecipe = async (evt: any) => {
+    evt.preventDefault();
+    try {
+      const response = await fetch(`https://dummyjson.com/recipes/search?q=Margherita`)
+      const result = await response.json();
+      setRecipes(result);
+      setIsLoading(false)
+      
+    } catch (error) {
+      setIsLoading(false)
+      setIsError(true)
+    }
+
+  }
+
   useEffect(()=> {
     getRecipes()
   }, [])
 
   return (
     <div>
+      <form onSubmit={searchRecipe} >
+        <input type="text" />
+      </form>
+
+      {isError && <div>Error
+        <button onClick={getRecipes}>reload</button>
+        </div>
+      }
+
+      {
+        isLoading && <div>Loading</div>
+      }
+      
       {
         recipes.recipes.map((recipe) => <RecipesItem key={recipe.id.toString()} recipe={recipe} /> )
       }
