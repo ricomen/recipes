@@ -45,12 +45,14 @@ const RecipesItem: FC<IRecipesItemProps> = ({recipe}) => {
     image
   } = recipe;
   return (
-    <div>
+    <div className='flex shadow-lg my-3 p-5'>
       <figure>
         <img src={image} alt={name.toString()} width="150" height="auto"/>
       </figure>
-      <h3>{name}</h3>
-      <p>Калорий на порцию: {caloriesPerServing.toString()}</p>
+      <div className='px-4'>
+        <h3 className='font-bold'>{name}</h3>
+        <p>Калорий на порцию: {caloriesPerServing.toString()}</p>
+      </div>
     </div>
   )
 }
@@ -73,22 +75,25 @@ function App() {
       setIsLoading(false)
       
     } catch (error) {
-      setIsLoading(false)
       setIsError(true)
+      setIsLoading(false)
     }
   }
 
   const searchRecipe = async (evt: any) => {
     evt.preventDefault();
+    const formData = new FormData(evt.target);
+    const inputValue = formData.get('searchRecipe')
+
     try {
-      const response = await fetch(`https://dummyjson.com/recipes/search?q=Margherita`)
+      const response = await fetch(`https://dummyjson.com/recipes/search?q=${inputValue}`)
       const result = await response.json();
       setRecipes(result);
       setIsLoading(false)
       
     } catch (error) {
-      setIsLoading(false)
       setIsError(true)
+      setIsLoading(false)
     }
 
   }
@@ -98,9 +103,12 @@ function App() {
   }, [])
 
   return (
-    <div>
+    <div className='container mx-auto px-4'>
+      <h1 className="text-3xl font-bold underline">
+        Hello world!
+      </h1>
       <form onSubmit={searchRecipe} >
-        <input type="text" />
+        <input type="text" name='searchRecipe' className='border-solid border-2' />
       </form>
 
       {isError && <div>Error
