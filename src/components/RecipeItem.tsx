@@ -1,9 +1,11 @@
 import { FC } from 'react'
 import { Recipe } from '../types/Recipe';
 import { useRecipe } from '../hooks/useRecipe';
+import { Link } from "react-router-dom";
 
 type IRecipeItemProps = {
   recipe: Recipe;
+
 };
 
 const RecipesItem: FC<IRecipeItemProps> = ({ recipe }) => {
@@ -20,6 +22,8 @@ const RecipesItem: FC<IRecipeItemProps> = ({ recipe }) => {
         <h3 className="font-bold">{name}</h3>
         <p>Калорий на порцию: {caloriesPerServing}</p>
       </div>
+      <Link className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" to={`/recipe/${id}`}>Открыть</Link>
+
       {!isBookmarked && <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => addToBookmarks(id)}>В закладки</button>}
       
       {isBookmarked && <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => removeFromBookmarks(id)}>Убрать из закладок</button>}
