@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import RecipeItem from "../components/RecipeItem";
 import { Recipe } from "../types/Recipe";
-import { useRecipe } from "../hooks/useRecipe";
+import { useRecipeList } from "../hooks/useRecipeList";
 
 const RecipesPage = () => {
-  const { recipes, fetch, isError, isLoading } = useRecipe();
+  const { recipes, fetch, isError, isLoading } = useRecipeList();
   
   useEffect(() => {
     fetch();
@@ -28,7 +28,7 @@ const RecipesPage = () => {
       }
       
       {
-        recipes.recipes.map((recipe: Recipe) => <RecipeItem key={recipe.id} recipe={recipe} /> )
+        recipes.recipes?.map((recipe: Recipe) => <RecipeItem key={recipe.id} recipe={recipe} /> )
       }
     </>
   )

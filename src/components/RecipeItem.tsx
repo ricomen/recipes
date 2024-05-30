@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { Recipe } from '../types/Recipe';
-import { useRecipe } from '../hooks/useRecipe';
+import { useRecipeList } from '../hooks/useRecipeList';
 import { Link } from "react-router-dom";
 
 type IRecipeItemProps = {
@@ -10,10 +10,11 @@ type IRecipeItemProps = {
 
 const RecipesItem: FC<IRecipeItemProps> = ({ recipe }) => {
   const { name, caloriesPerServing, image, id } = recipe;
-  const { addToBookmarks, removeFromBookmarks, bookmarks } = useRecipe();
+  const { addToBookmarks, removeFromBookmarks, bookmarks } = useRecipeList();
   const isBookmarked = bookmarks.includes(id);
 
   return (
+  
     <div className="flex shadow-lg my-3 p-5">
       <figure>
         <img src={image} alt={name} width="150" height="auto" />

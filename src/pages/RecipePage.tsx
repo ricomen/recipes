@@ -1,24 +1,24 @@
 import { useEffect, FC } from "react";
-
-import { RecipeDetail } from "../types/Recipe";
-import { useRecipe } from "../hooks/useRecipe";
 import { useParams } from "react-router-dom";
+import { useRecipe } from "../hooks/useRecipe";
+
 
 const RecipesPage: FC = () => {
     const { id } = useParams();
-    const {fetchRecipe, recipeDetail} = useRecipe()
-    console.log(recipeDetail)
-    // const {} = recipeDetail;
+    const {fetch, recipe} = useRecipe()
+    console.log(id)
+
+
     useEffect(() => {
-      fetchRecipe(id)
+      fetch(id)
     }, [])
     return (
     <>
-      <img src={recipeDetail.image} width="200" height="auto" alt={recipeDetail.name} />
-      <div>Количество калорий {recipeDetail.caloriesPerServing}</div>
-      <div>Сложность {recipeDetail.difficult}</div>
-      <div>Ингридиенты: {recipeDetail.ingredients?.join()}</div>
-      <div>Количество калорий {recipeDetail.caloriesPerServing}</div>
+      <img src={recipe.image} width="200" height="auto" alt={recipe.name} />
+      <div>Количество калорий {recipe.caloriesPerServing}</div>
+      <div>Сложность {recipe.difficulty}</div>
+      <div>Ингридиенты: {recipe.ingredients?.join()}</div>
+      <div>Количество калорий {recipe.caloriesPerServing}</div>
     </>
   );
 };
